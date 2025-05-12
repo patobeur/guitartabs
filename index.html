@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<title>Accords de guitare</title>
+		<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div id="modal" class="modal">
+			<div class="modal-content">
+				<h2>Modifier l'accord</h2>
+				<form id="editForm" class="modal-form" >
+					<label>Famille <input name="famille" required/></label>
+					<label>Accord <input name="accord" required/></label>
+					<label>Type <input name="type" required/></label>
+					<!-- <label>Note <input name="note" required/></label>
+					<label>Nom FR <input name="fr" required/></label> -->
+					<label>Tab (séparé par ,) <input name="tab"  placeholder="ex: null,3,2,0,1,0"/></label>
+					<label>Doigts (séparé par ,) <input name="fingers"  placeholder="ex: 0,3,2,0,1,0"/></label>
+					<!-- <label>Frette de départ <input name="fret_start" type="number"/></label> -->
+					<label>Barré (fret-from-to) <input name="barre" placeholder="ex: 1-5-1"/></label><br>
+					<div class="structure">
+						<label>Fondamental <input name="fondamental" placeholder="ex: C"/></label>
+					</div>
+					<div class="buttons">
+						<button class="delete" type="button" onclick="deleteChord()">Supprimer</button>
+						<button class="close" type="button" onclick="modal.closeModal()">Annuler</button>
+						<button class="submit" type="submit" >Enregistrer</button>
+						
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="actions">
+			<button onclick="modal.openModal()" class="open">
+				<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16 12.75H12.75V16C12.75 16.41 12.41 16.75 12 16.75C11.59 16.75 11.25 16.41 11.25 16V12.75H8C7.59 12.75 7.25 12.41 7.25 12C7.25 11.59 7.59 11.25 8 11.25H11.25V8C11.25 7.59 11.59 7.25 12 7.25C12.41 7.25 12.75 7.59 12.75 8V11.25H16C16.41 11.25 16.75 11.59 16.75 12C16.75 12.41 16.41 12.75 16 12.75Z" fill="#292D32"></path> </g></svg>
+				<span>Ajouter un accord</span>
+			</button>
+
+			<button onclick="jsonManager.exportJSON()" class="export">
+				<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21.14 9.89844H12.75V15.3784C12.75 15.7884 12.41 16.1284 12 16.1284C11.59 16.1284 11.25 15.7884 11.25 15.3784V9.89844H2.86C2.38 9.89844 2 10.2784 2 10.7584C2 16.6484 6.11 20.7584 12 20.7584C17.89 20.7584 22 16.6484 22 10.7584C22 10.2784 21.62 9.89844 21.14 9.89844Z" fill="#292D32"></path> <path d="M12.7484 5.79969L14.3084 7.35969C14.5984 7.64969 15.0784 7.64969 15.3684 7.35969C15.6584 7.06969 15.6584 6.58969 15.3684 6.29969L12.5184 3.45969C12.2284 3.16969 11.7484 3.16969 11.4584 3.45969L8.61844 6.30969C8.47844 6.45969 8.39844 6.64969 8.39844 6.83969C8.39844 7.02969 8.46844 7.21969 8.61844 7.36969C8.90844 7.65969 9.38844 7.65969 9.67844 7.36969L11.2384 5.80969V9.89969H12.7384V5.79969H12.7484Z" fill="#292D32"></path> </g></svg>
+				<span>Exporter JSON</span>
+			</button>
+			<label class="import">
+				<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21.14 9.89844H12.68V13.5684L14.25 11.9984C14.54 11.7084 15.02 11.7084 15.31 11.9984C15.6 12.2884 15.6 12.7684 15.31 13.0584L12.46 15.8984C12.17 16.1884 11.69 16.1884 11.4 15.8984L8.55 13.0584C8.4 12.9084 8.33 12.7184 8.33 12.5284C8.33 12.3384 8.41 12.1484 8.56 11.9984C8.85 11.7084 9.33 11.7084 9.62 11.9984L11.18 13.5584V9.89844H2.86C2.38 9.89844 2 10.2784 2 10.7584C2 16.6484 6.11 20.7584 12 20.7584C17.89 20.7584 22 16.6484 22 10.7584C22 10.2784 21.62 9.89844 21.14 9.89844Z" fill="#292D32"></path> <path d="M12.6797 3.98828C12.6797 3.57828 12.3397 3.23828 11.9297 3.23828C11.5197 3.23828 11.1797 3.57828 11.1797 3.98828V9.88828H12.6797V3.98828Z" fill="#292D32"></path> </g></svg>
+				<span>Importer JSON</span>
+				<input type="file" accept="application/json" onchange="jsonManager.importJSON(event)" style="display:none;">
+			</label>
+		</div>
+		<script src="accords.js"></script>
+		<script src="main.js"></script>
+	</body>
+</html>

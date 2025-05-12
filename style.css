@@ -1,0 +1,323 @@
+:root{
+    --triade: #fffbd7;
+    --tetrade:rgb(219, 250, 255);
+    --autre: #e6ffd8;
+}
+* {    
+  box-sizing: border-box;
+}
+body {
+    font-family: sans-serif;
+    background-color: #0f345ebe;
+    &.mobil{
+        background-color: #185e0fbe;
+    }
+    .screensize {
+        position: fixed;
+        top:5px;
+        right:5px;
+        z-index: 99999;
+        color: #f2f2f2;
+        width: max-content;
+        border-radius:5px;
+        font-size:16px;
+        padding:3px 5px;
+        background-color: #004ea749;
+    }
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        .card {
+            flex: 1 1 calc(50% - 20px);
+            max-width: calc(50% - 20px);
+            aspect-ratio: 1/1.5;
+            background: white;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.589);
+            margin: 10px;
+            &.Triade{
+                background: var(--triade);
+            }
+            &.Tétrade{
+                background: var(--tetrade);
+            }
+            &.Autre{
+                background: var(--autre);
+            }
+            .card-content {
+                position: relative;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
+                .family {
+                    /* width: 100%; */
+                    font-size: 0.9rem;
+                    color: #ff0000;
+                    text-align: left;
+                    position: absolute;
+                    top:0;
+                    left:0;
+                    padding:3px 7px;
+                    background-color:#5eff00;
+                    border-radius: 9px;
+                }
+                .chordsfamille{
+                    position: absolute;
+                    bottom:0;
+                    left:0;
+                    padding:3px 7px;
+                    background-color:#5eff00;
+                    border-radius: 9px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                }
+                .chord {
+                    font-size: 1rem;
+                    font-weight: bold;
+                    text-align: center;
+                    position: absolute;
+                    top:0;
+                    right:0;
+                    padding:3px 7px;
+                    background-color: #ff6600;
+                    border-radius: 9px;
+                }
+                .note {
+                    font-size: 1rem;
+                    text-align: center;
+                    margin-bottom: 0.25rem;
+                }
+                .note-fr {
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    color: #555;
+                    text-align: center;
+                    position: absolute;
+                    bottom:0;
+                    right:0;
+                    padding:3px 7px;
+                    background-color: #ff6600;
+                    border-radius: 9px;
+                }
+                svg {
+                    min-width: 80px;
+                    min-height: 80px;
+                    aspect-ratio: 1 / 1;
+                    display: block;
+                }
+                .notefondamentale {
+                    font-size: 1rem;
+                    text-align: center;
+                    margin-bottom: 0.25rem;
+                    background-color: #ff0000;
+                }
+                .quintejuste {
+                    font-size: 1rem;
+                    text-align: center;
+                    margin-bottom: 0.25rem;
+                    background-color: #00ff9d;
+                }
+                .tiercemajeure {
+                    font-size: 1rem;
+                    text-align: center;
+                    margin-bottom: 0.25rem;
+                    background-color: #00f7ff;
+                }
+            }
+        }
+
+    }
+    .actions {
+        position:fixed;
+        z-index:1;
+        bottom: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #000000cb;
+            border-radius:5px;
+            padding:5px;
+        button,
+        label {
+            padding-right:7px;
+            cursor: pointer;
+            color:white;
+            border:none;
+            border-radius:5px;
+            font-size:32px;
+            width:max-content;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 0 5px 0;
+            &:last-child{
+                margin: 0 0 0 0;
+            }
+            input{
+                /* width:100%; */
+            }
+            svg {
+                width:24px;
+                aspect-ratio: 1/1;
+                margin-right: 3px;
+            }
+            &.export{
+                background:#005bbd;
+            }
+            &.import{
+                background:#ff6600;
+                svg {
+                    margin-left: 3px;
+                }
+            }
+            &.open{
+                background:#00a740;
+            }
+            &:hover{
+                width:max-content;
+                svg {
+                    filter: invert(1);
+                }
+            }
+        }
+    }
+    .modal {
+        position:fixed;
+        top:0;
+        left:0;
+        width:100vw; 
+        height:100vh; 
+        background:#0000005d; 
+        display:none; 
+        justify-content:center; 
+        align-items:center; 
+        z-index:1000;
+        .modal-content{
+            background:rgba(255, 255, 255, 0.767);
+            padding:20px;
+            border-radius:10px;
+            width:400px;
+            max-width:90%;
+            position:relative;
+            .modal-form {
+                label {
+                    display: flex;
+                    align-items: center;
+                    input {
+                        margin-left: 10px;
+                        /* width: 100%; */
+                    }
+                }
+                .buttons {
+                    display:flex;
+                    justify-content:space-between;
+                    button{
+                        padding:3px 7px;
+                        cursor: pointer;
+                        color:white;
+                        border:none;
+                        border-radius:5px;
+                    }
+                    .delete {
+                        background:#f00;
+                        color:#fff;
+                    }
+                    .close {
+                        background:#000;
+                        color:#fff;
+                    }
+                    .submit {
+                        background:rgb(0, 204, 17);
+                        color:#000;
+                    }
+                }
+            }
+        }
+    }
+}
+/* @media screen and (max-width: 1024px) {
+    body .cards .card {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+    body .actions {
+        button, label {
+            font-size:24px;
+        }
+    }
+} */
+@media screen and (max-width: 400px) {
+    body {
+        .actions {
+            button, label {
+                width: max-content;
+                font-size:24px;
+            }
+        }
+    }
+}
+@media screen and (min-width: 401px) and (max-width: 600px) {
+    body {
+        .cards .card{
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+        }
+        .actions {
+            button, label {
+                width: max-content;
+                font-size:24px;
+            }
+        }
+    }
+}
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+    body  {
+        .cards .card{
+            flex: 1 1 calc(25% - 20px);
+            max-width: calc(25% - 20px);
+        }
+        .actions {
+            align-items: end;
+            button, label {
+                font-size:16px;
+            }
+        }
+
+    }
+}
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+    body  {
+        .cards .card{
+            flex: 1 1 calc(20% - 20px);
+            max-width: calc(20% - 20px);
+        }
+        .actions {
+            align-items: end;
+            button, label {
+                font-size:16px;
+            }
+        }
+    }
+}
+@media screen and (min-width: 1281px) {
+    body {
+        .cards .card {
+            flex: 1 1 calc(16.666% - 20px);
+            max-width: calc(16.666% - 20px);
+        }
+        .actions {
+            align-items: end;
+            button, label {
+                font-size:16px;
+            }
+        }
+    }
+}

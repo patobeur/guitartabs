@@ -428,12 +428,4 @@ const modal = {
 		});
 	}
 }
-const device = {
-	device:'desktop',
-	detect:function(){
-		this.device = (/Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent)) ? 'mobile' : 'desktop';
-		document.body.classList.add(this.device)
-		return this.device
-	}
-}
 window.addEventListener("load",()=>displayManager.init());

@@ -9,7 +9,7 @@ Elle offre une interface simple pour éditer les positions des doigts, ajouter d
 
 ## 🔗 Démo en ligne
 
-👉 [patobeur.github.io/guitartabs]('https://patobeur.github.io/guitartabs/?target=_blank')
+👉 [patobeur.github.io/guitartabs](https://patobeur.github.io/guitartabs)
 
 ---
 
@@ -44,8 +44,8 @@ Elle offre une interface simple pour éditer les positions des doigts, ajouter d
 ## 📦 Installation locale
 
 ```bash
-git clone https://github.com/patobeur/guitartabs.git
-cd guitartabs
+    git clone https://github.com/patobeur/guitartabs.git
+    cd guitartabs
 ```
 
 Puis ouvre simplement le fichier `index.html` dans ton navigateur préféré.

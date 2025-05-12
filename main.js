@@ -65,7 +65,11 @@ const jsonManager = {
 		}
 	},
 	exportJSON:function(){
-		const blob = new Blob([JSON.stringify(this.datas, null, 2)], { type: 'application/json' });
+		let json = JSON.stringify(this.datas, null, 2)
+		const blob = new Blob([json], { type: 'application/json' });
+			console.log('Exported json')
+			console.log(json)
+			json = null
 		const url = URL.createObjectURL(blob);
 		const a = document.createElement('a');
 		a.href = url;
@@ -83,8 +87,8 @@ const jsonManager = {
 			try {
 				const imported = JSON.parse(e.target.result);
 				if (Array.isArray(imported)) {
-					console.log(imported)
 					this.datas = imported;
+					console.log('Imported json')
 					console.log(this.datas)
 					this.saveToLocalStorage();
 					location.reload();
@@ -98,7 +102,6 @@ const jsonManager = {
 		reader.readAsText(file);
 	},
 	saveToLocalStorage:function() {
-		console.log('saveToLocalStorage')
 		localStorage.setItem("accords", JSON.stringify(this.datas));
 	}
 }
@@ -336,12 +339,9 @@ const modal = {
 	},
 	openModal:function(index){
     	this.index = index ?? null;
-		console.log('openModal',this.index)
-		console.log('openModal',this.index)
 
 		if (this.index !== null) {
 			const chord = jsonManager.datas[this.index];
-		console.log('chord',chord)
 			this.form.famille.value = chord.famille.nom;
 			this.form.famille.structure = chord.famille.structure;
 			this.form.accord.value = chord.accord;

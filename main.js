@@ -1,4 +1,38 @@
 "use strict";
+const detectDevice = {
+  deviceType: "inconnu",
+  isTouchScreen: false,
+  hasMouse: false,
+  detectDeviceType() {
+    const ua = navigator.userAgent.toLowerCase();
+    // Test basique par User-Agent pour distinguer les types
+    if (/mobile|android|iphone|ipod/.test(ua)) {
+      return "smartphone";
+    } else if (/ipad|tablet|kindle/.test(ua)) {
+      return "tablette";
+    } else if (/mac|windows|linux/.test(ua)) {
+      return "écran";
+    } else {
+      return "autre";
+    }
+  },
+  detectTouchSupport() {
+    return (
+      'ontouchstart' in window || 
+      navigator.maxTouchPoints > 0 || 
+      window.matchMedia('(pointer: coarse)').matches
+    );
+  },
+  detectMouseSupport() {
+    return window.matchMedia('(pointer: fine)').matches;
+  },
+  analyser() {
+    this.deviceType = this.detectDeviceType();
+    this.isTouchScreen = this.detectTouchSupport();
+    this.hasMouse = this.detectMouseSupport();
+	this.texte = this.deviceType + (this.isTouchScreen?'+tactile':'+non tactile') + (this.hasMouse?'+souris':'')
+  }
+};
 function deleteChord() {
   if (modal.index !== null) {
     const confirmDelete = confirm("Voulez-vous vraiment supprimer cet accord ?");
@@ -25,7 +59,29 @@ const rules = {
 		return this.notes.fr[this.notes.us.indexOf(note)];
 	},
 }
-const displaySize = {sizeDiv:document.createElement('div'),init:function(){this.sizeDiv.className='screensize';document.body.append(this.sizeDiv);this.sizeDiv.textContent=device.device+':'+window.innerWidth+' x '+window.innerHeight;window.addEventListener("resize",(event)=>{this.sizeDiv.textContent= device.device+':'+window.innerWidth+' x '+window.innerHeight});}}
+
+const displaySize = {
+	displayed:false,
+	sizeDiv:document.createElement('div'),
+	init:function(){
+		this.sizeDiv.className='screensize';
+		document.body.append(this.sizeDiv);
+		this.sizeDiv.textContent=detectDevice.texte+':'+window.innerWidth+' x '+window.innerHeight;
+		window.addEventListener("resize",(event)=>{
+			this.sizeDiv.textContent= detectDevice.texte+':'+window.innerWidth+' x '+window.innerHeight
+			this.sizeDiv.classList.add('displayed')
+			if(!this.displayed){
+				setTimeout(() => {
+					this.displayed=false;
+					this.sizeDiv.classList.remove('displayed')
+				}, 2000);
+			}
+			this.displayed=true
+		});
+	}
+}
+
+// const displaySize = {sizeDiv:document.createElement('div'),init:function(){this.sizeDiv.className='screensize';document.body.append(this.sizeDiv);this.sizeDiv.textContent=device.device+':'+window.innerWidth+' x '+window.innerHeight;window.addEventListener("resize",(event)=>{this.sizeDiv.textContent= device.device+':'+window.innerWidth+' x '+window.innerHeight});}}
 const jsonManager = {
 	fileNamePath:"accords.json",
 	dynamique:true,// localstorage activé
@@ -205,7 +261,7 @@ const svgManager = {
 const displayManager = {
 	cardsDiv:document.createElement('div'),
 	init:function(){
-		device.detect()
+		detectDevice.analyser()
 		jsonManager.init()
 		modal.init()
 	},

@@ -23,6 +23,14 @@ body {
         font-size:16px;
         padding:3px 5px;
         background-color: #004ea749;
+		opacity: 0;
+		&.displayed {
+			opacity: 1;
+		}
+		&:not(.displayed) {
+			animation-duration: 5s;
+			animation-name: disparaitre;
+		}
     }
     .cards {
         display: flex;

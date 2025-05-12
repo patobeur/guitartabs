@@ -9,7 +9,7 @@ Elle offre une interface simple pour éditer les positions des doigts, ajouter d
 
 ## 🔗 Démo en ligne
 
-👉 [patobeur.github.io/guitartabs](https://patobeur.github.io/guitartabs)
+👉 [patobeur.github.io/guitartabs](https://patobeur.github.io/guitartabs){:target="_blank"}
 
 ---
 

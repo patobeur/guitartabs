@@ -30,7 +30,7 @@ const detectDevice = {
     this.deviceType = this.detectDeviceType();
     this.isTouchScreen = this.detectTouchSupport();
     this.hasMouse = this.detectMouseSupport();
-	this.texte = this.deviceType + (this.isTouchScreen?'+tactile':'+non tactile') + (this.hasMouse?'+souris':'')
+	this.texte = this.deviceType + (this.isTouchScreen?'+tactile':'') + (this.hasMouse?'+souris':'')
   }
 };
 function deleteChord() {
